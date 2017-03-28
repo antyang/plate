@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Home page</title>
+  <title>Restaurant home page</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/boostrap.min.css' %}">
 
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -11,6 +11,9 @@
 
 </head>
 <body>
-  <div>Hello python!</div>
+  <div>
+    <h1>Restaurant page</h1>
+    <a href="{% url 'restaurant-sign-out' %}">Log out</a>
+  </div>
 </body>
 </html>

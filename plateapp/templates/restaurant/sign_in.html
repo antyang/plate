@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign In page</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/boostrap.min.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+  <script type="text/javascript" src="{% static 'js/boostrap.min.js' %}"></script>
+
+</head>
+<body>
+  <form method="POST">
+  <!-- csrf_token for security reason -->
+    {% csrf_token %}
+    <!-- here we're using a predefined form from django-->
+    {{ form }}
+    <button type="submit">Sign In</button>
+  </form>
+</body>
+</html>

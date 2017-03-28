@@ -63,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -123,5 +124,6 @@ STATIC_URL = '/static/'
 # Once user logins successfully redirect to home
 LOGIN_REDIRECT_URL ='/'
 
-
-
+# Setting media root for all of the image and save to media directory
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

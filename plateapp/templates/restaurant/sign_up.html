@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up page</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/boostrap.min.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+  <script type="text/javascript" src="{% static 'js/boostrap.min.js' %}"></script>
+
+</head>
+<body>
+  <div>
+    <h1>Sign up</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <!-- these are the variables from views-->
+      {{ user_form}}
+      {{ restaurant_from }}
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+</body>
+</html>

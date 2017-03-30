@@ -129,3 +129,11 @@ LOGIN_REDIRECT_URL ='/'
 # Setting media root for all of the image and save to media directory
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Replace default SQLite with Heroku PostgreSQL
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+
+
+

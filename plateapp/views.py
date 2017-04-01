@@ -6,11 +6,14 @@ from django.contrib.auth import authenticate, login
 
 # User model of django
 from django.contrib.auth.models import User
+from plateapp.models import Meal
+
 
 # Create your views here.
 
 # views.py acts like a controller
 # containing fn act like actions
+# getting and handling data
 
 # Create function name home, that redirects users to home page
 def home(request):
@@ -48,7 +51,11 @@ def restaurant_account(request):
 
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_meal(request):
-  return render(request, 'restaurant/meal.html', {})
+  # get all the meals with this condition
+  meals = Meal.objects.filter(restaurant = request.user.restaurant).order_by("-id")
+  return render(request, 'restaurant/meal.html', {
+    "meals": meals
+    })
 
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_add_meal(request):
@@ -71,6 +78,25 @@ def restaurant_add_meal(request):
     # render above defined "form" to front page
     "form": form
     })
+
+@login_required(login_url='/restaurant/sign-in/')
+def restaurant_edit_meal(request, meal_id):
+  # get meals from db based on ID
+  form = MealForm(instance = Meal.objects.get(id = meal_id))
+
+  if request.method == "POST":
+    # set form
+    form = MealForm(request.POST, request.FILES, instance = Meal.objects.get(id = meal_id))
+
+    if form.is_valid():
+      form.save()
+      return redirect(restaurant_meal)
+
+  return render(request, 'restaurant/edit_meal.html', {
+    # render above defined "form" to front page
+    "form": form
+    })
+
 
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_order(request):

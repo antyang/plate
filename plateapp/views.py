@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from plateapp.forms import UserForm, RestaurantForm, UserFormForEdit
+from plateapp.forms import UserForm, RestaurantForm, UserFormForEdit, MealForm
 from django.contrib.auth import authenticate, login
 
 # User model of django
@@ -52,7 +52,25 @@ def restaurant_meal(request):
 
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_add_meal(request):
-  return render(request, 'restaurant/add_meal.html', {})
+  form = MealForm()
+
+  if request.method == "POST":
+    # set form
+    form = MealForm(request.POST, request.FILES)
+
+    if form.is_valid():
+      # create meal obj, don't save in db yet
+      meal = form.save(commit=False)
+      # set to users restaurant
+      meal.restaurant = request.user.restaurant
+      # then save to db
+      meal.save()
+      return redirect(restaurant_meal)
+
+  return render(request, 'restaurant/add_meal.html', {
+    # render above defined "form" to front page
+    "form": form
+    })
 
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_order(request):

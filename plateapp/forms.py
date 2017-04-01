@@ -1,7 +1,7 @@
 from django import forms
 
 from django.contrib.auth.models import User
-from plateapp.models import Restaurant
+from plateapp.models import Restaurant, Meal
 
 class UserForm(forms.ModelForm):
   # defining the fields
@@ -24,3 +24,11 @@ class RestaurantForm(forms.ModelForm):
   class Meta:
     model = Restaurant
     fields = ("name", "phone", "address", "logo")
+
+
+class MealForm(forms.ModelForm):
+  class Meta:
+    model = Meal
+    # exclude restaurant model
+    exclude = ("restaurant",)
+
